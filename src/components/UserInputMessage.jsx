@@ -10,6 +10,23 @@ const UserInputMessageContainer = styled.div`
   align-items: center;
 `;
 
+const UserAvatar = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: black;
+  margin: 0 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+`;
+
 export default function UserInputMessage({ message }) {
-  return <UserInputMessageContainer>{message}</UserInputMessageContainer>;
+  return (
+    <UserInputMessageContainer>
+      <UserAvatar>U</UserAvatar>
+      {message}
+    </UserInputMessageContainer>
+  );
 }

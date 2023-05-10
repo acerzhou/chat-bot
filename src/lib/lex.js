@@ -21,7 +21,7 @@ export default async function sendText(inputMessage) {
     botId: "OZUKQW0QQI",
     botAliasId: "TSTALIASID",
     localeId: "en_US",
-    sessionId: "1234",
+    sessionId: "12345678",
     text: inputMessage,
     responseContentType: "text/plain; charset=utf-8",
     sessionState: {
@@ -29,7 +29,7 @@ export default async function sendText(inputMessage) {
         type: "Delegate",
       },
       intent: {
-        name: "BookHotel",
+        name: "GetUserInfo",
       },
     },
   };
@@ -37,8 +37,6 @@ export default async function sendText(inputMessage) {
   const command = new RecognizeTextCommand(input);
 
   const data = await client.send(command);
-
-  console.log(data);
 
   return data;
 }

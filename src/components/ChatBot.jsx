@@ -17,6 +17,10 @@ const ChatBotContainer = styled.div`
   justify-content: center;
 `;
 
+const ChatBotMessagesContainer = styled.div`
+  width: 100%;
+`;
+
 const Input = styled.input`
   width: 70%;
   height: 40px;
@@ -25,23 +29,33 @@ const Input = styled.input`
 `;
 
 export default function ChatBot() {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    {
+      type: "botResponse",
+      message: {
+        content: "Hello, how can I help you?",
+        contentType: "plainText",
+      },
+    },
+  ]);
   const [input, setInput] = useState("");
 
-  function handleKeyPress(event) {
+  async function handleKeyPress(event) {
     if (event.key === "Enter") {
       setMessages((messages) => [
         ...messages,
-        { message: input, type: "userInput" },
+        { message: { content: input, type: "plainText" }, type: "userInput" },
       ]);
 
-      const data = sendText(input);
+      const data = await sendText(input);
       setInput("");
+
+      console.log(data);
 
       if (data.messages) {
         setMessages((messages) => [
           ...messages,
-          { message: data.messages[0].value, type: "botResponse" },
+          { message: data.messages[0], type: "botResponse" },
         ]);
       }
     }
@@ -49,13 +63,23 @@ export default function ChatBot() {
 
   return (
     <ChatBotContainer>
-      {messages.map((message, index) => {
-        if (message.type === "userInput") {
-          return <UserInputMessage key={index} message={message.message} />;
-        } else {
-          return <BotResponseMessages key={index} message={message.message} />;
-        }
-      })}
+      <ChatBotMessagesContainer>
+        {messages.map((message, index) => {
+          if (message.type === "userInput") {
+            return (
+              <UserInputMessage key={index} message={message.message.content} />
+            );
+          } else {
+            return (
+              <BotResponseMessages
+                key={index}
+                message={message.message.content}
+                type={message.message.contentType}
+              />
+            );
+          }
+        })}
+      </ChatBotMessagesContainer>
 
       <Input
         type="text"
