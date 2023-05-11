@@ -4,6 +4,7 @@ import { useState } from "react";
 import UserInputMessage from "./UserInputMessage";
 import BotResponseMessages from "./BotResponseMessages";
 import sendText from "../lib/lex";
+import userEvent from "@testing-library/user-event";
 
 const ChatBotContainer = styled.div`
   width: 80%;
@@ -39,6 +40,7 @@ export default function ChatBot() {
     },
   ]);
   const [input, setInput] = useState("");
+  const [slots, setSlots] = useState(null);
 
   async function handleKeyPress(event) {
     if (event.key === "Enter") {
@@ -47,10 +49,11 @@ export default function ChatBot() {
         { message: { content: input, type: "plainText" }, type: "userInput" },
       ]);
 
-      const data = await sendText(input);
+      const data = await sendText(input, slots);
       setInput("");
 
       console.log(data);
+      setSlots(data.sessionState.intent.slots);
 
       if (data.messages) {
         setMessages((messages) => [

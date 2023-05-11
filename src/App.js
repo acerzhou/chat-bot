@@ -7,6 +7,8 @@ import Navigation from "./components/Navigation";
 import Carousel from "./components/Carousel";
 import { getUserInfo } from "./lib/userInfo";
 import UserInfo from "./components/UserInfo";
+import { getProducts } from "./lib/products";
+import Products from "./components/Products";
 
 const Container = styled.div`
   display: flex;
@@ -31,6 +33,7 @@ const SideButton = styled.div`
 function App() {
   const [isChatBotShow, setIsChatBotShow] = useState(false);
   const [isUserInfoShow, setIsUserInfoShow] = useState(false);
+  const [products, setProducts] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
@@ -38,7 +41,14 @@ function App() {
       const userInfo = await getUserInfo();
       setUserInfo(userInfo);
     }
+
+    async function callProductApi() {
+      const products = await getProducts();
+      setProducts(products);
+      console.log(products);
+    }
     callUserInfo();
+    callProductApi();
   }, []);
 
   function handleUserInfoClick() {
@@ -63,6 +73,7 @@ function App() {
           handleUserInfoClick={handleUserInfoClick}
         />
       )}
+      <Products products={products} />
     </Container>
   );
 }

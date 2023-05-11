@@ -30,7 +30,7 @@ export default function BotResponseMessages({ message, type }) {
       {type === "CustomPayload" && JSON.parse(message).type === "userInfo" && (
         <BotResponseUserInfo userInfo={JSON.parse(message)} />
       )}
-      {type === "plainText" && message}
+      {type === "PlainText" && message}
     </BotResponseMessagesContainer>
   );
 }

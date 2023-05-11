@@ -15,13 +15,13 @@ function createLexClient() {
   });
 }
 
-export default async function sendText(inputMessage) {
+export default async function sendText(inputMessage, slots) {
   const client = createLexClient();
   const input = {
     botId: "OZUKQW0QQI",
     botAliasId: "TSTALIASID",
     localeId: "en_US",
-    sessionId: "12345678",
+    sessionId: "123456789",
     text: inputMessage,
     responseContentType: "text/plain; charset=utf-8",
     sessionState: {
@@ -29,7 +29,8 @@ export default async function sendText(inputMessage) {
         type: "Delegate",
       },
       intent: {
-        name: "GetUserInfo",
+        name: "UpdateUserName",
+        slots: slots,
       },
     },
   };
