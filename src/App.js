@@ -9,6 +9,7 @@ import { getUserInfo } from "./lib/userInfo";
 import UserInfo from "./components/UserInfo";
 import { getProducts } from "./lib/products";
 import Products from "./components/Products";
+import Cart from "./components/Cart";
 
 const Container = styled.div`
   display: flex;
@@ -58,6 +59,7 @@ function App() {
   return (
     <Container>
       <UserIcon handleUserIcnoClick={handleUserInfoClick} />
+      <Cart />
       <Navigation />
       <Carousel />
       <SideButton
