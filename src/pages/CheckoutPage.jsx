@@ -37,7 +37,6 @@ const UserInfoContainer = styled.div`
 function UserInfo() {
   const [userInfo, setUserInfo] = useState({});
 
-  console.log(cart);
   useEffect(() => {
     async function callUserInfo() {
       const userInfo = await getUserInfo();
@@ -95,6 +94,7 @@ function Payment() {
 
 function Cart() {
   const [cart, setCart] = useState({});
+  console.log(cart);
   useEffect(() => {
     async function CallCartApi() {
       const cart = await getCart();
