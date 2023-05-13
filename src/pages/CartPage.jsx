@@ -46,10 +46,10 @@ function CheckoutItem() {
 }
 export default function CartPage() {
   const [cart, setCart] = useState({});
+  console.log(cart);
   useEffect(() => {
     async function CallCartApi() {
       const cart = await getCart();
-      console.log("cart", cart);
       setCart(cart);
     }
 

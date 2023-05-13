@@ -4,7 +4,6 @@ import { useState } from "react";
 import UserInputMessage from "./UserInputMessage";
 import BotResponseMessages from "./BotResponseMessages";
 import sendText from "../lib/lex";
-import userEvent from "@testing-library/user-event";
 
 const ChatBotContainer = styled.div`
   width: 80%;
