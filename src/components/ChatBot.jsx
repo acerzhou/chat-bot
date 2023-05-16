@@ -1,6 +1,6 @@
 // write a jsx compoenent
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import UserInputMessage from "./UserInputMessage";
 import BotResponseMessages from "./BotResponseMessages";
 import sendText from "../lib/lex";
@@ -19,6 +19,8 @@ const ChatBotContainer = styled.div`
 
 const ChatBotMessagesContainer = styled.div`
   width: 100%;
+  overflow-y: scroll;
+  height: 90%;
 `;
 
 const Input = styled.input`
@@ -28,18 +30,24 @@ const Input = styled.input`
   bottom: 10px;
 `;
 
-export default function ChatBot() {
-  const [messages, setMessages] = useState([
-    {
-      type: "botResponse",
-      message: {
-        content: "Hello, how can I help you?",
-        contentType: "plainText",
-      },
-    },
-  ]);
+export default function ChatBot({ messages, setMessages }) {
   const [input, setInput] = useState("");
   const [slots, setSlots] = useState(null);
+  const [sessionId, setSessionId] = useState(null);
+
+  const messageEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messageEndRef.current?.scrollTo(0, messageEndRef.current.scrollHeight);
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
+    setSessionId(Math.random().toString(36).substring(2));
+  }, []);
 
   async function handleKeyPress(event) {
     if (event.key === "Enter") {
@@ -48,8 +56,8 @@ export default function ChatBot() {
         { message: { content: input, type: "plainText" }, type: "userInput" },
       ]);
 
-      const data = await sendText(input, slots);
       setInput("");
+      const data = await sendText(sessionId, input, slots);
 
       console.log(data);
       setSlots(data.sessionState.intent.slots);
@@ -65,7 +73,7 @@ export default function ChatBot() {
 
   return (
     <ChatBotContainer>
-      <ChatBotMessagesContainer>
+      <ChatBotMessagesContainer ref={messageEndRef}>
         {messages.map((message, index) => {
           if (message.type === "userInput") {
             return (

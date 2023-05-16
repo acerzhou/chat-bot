@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { getUserInfo } from "../lib/userInfo";
 import { getCart } from "../lib/cart";
+import CartItem from "../components/CartItem";
 
 const Container = styled.div`
   width: 100%;
@@ -93,7 +94,7 @@ function Payment() {
 }
 
 function Cart() {
-  const [cart, setCart] = useState({});
+  const [cart, setCart] = useState({ items: [] });
   console.log(cart);
   useEffect(() => {
     async function CallCartApi() {
@@ -105,7 +106,13 @@ function Cart() {
     CallCartApi();
   }, []);
 
-  return <div> Cart info</div>;
+  return (
+    <div>
+      {cart.items.map((item, index) => {
+        return <CartItem key={index} item={item} />;
+      })}
+    </div>
+  );
 }
 
 export default function CheckoutPage() {
@@ -114,6 +121,7 @@ export default function CheckoutPage() {
       <h1>Checkout Page</h1>
       <div>User info</div>
       <UserInfo />
+
       <Cart />
       <div>Delivery Options</div>
       <DeliveryOptions />

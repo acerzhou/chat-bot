@@ -12,7 +12,7 @@ const ProductsContainer = styled.div`
 export default function Products({ products }) {
   return (
     <ProductsContainer>
-      {products.map((product, index) => {
+      {products.items.map((product, index) => {
         return <Product product={product} key={index} />;
       })}
     </ProductsContainer>

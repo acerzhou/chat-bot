@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { getCart } from "../lib/cart";
+import CartItem from "../components/CartItem";
 
 const Container = styled.div`
   width: 100%;
@@ -21,36 +22,16 @@ const CheckoutButton = styled(Link)`
   justify-content: center;
   align-items: center;
   text-decoration: none;
+  gap: 20px;
 `;
 
-const ItemContainer = styled.div`
-  width: 600px;
-  min-height: 100px;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-function CheckoutItem() {
-  return (
-    <ItemContainer>
-      <div>Image</div>
-      <div>Product Name</div>
-      <div>Product Price</div>
-      <div>Quantity</div>
-      <div>Remove</div>
-      <div>Sku</div>
-    </ItemContainer>
-  );
-}
 export default function CartPage() {
-  const [cart, setCart] = useState({});
-  console.log(cart);
+  const [cart, setCart] = useState({ items: [] });
   useEffect(() => {
     async function CallCartApi() {
       const cart = await getCart();
       setCart(cart);
+      console.log(cart);
     }
 
     CallCartApi();
@@ -59,7 +40,9 @@ export default function CartPage() {
   return (
     <Container>
       <h1>CartPage</h1>
-      <CheckoutItem />
+      {cart.items.map((item, index) => {
+        return <CartItem key={index} item={item} />;
+      })}
       <CheckoutButton to={"/checkout"}>Checkout</CheckoutButton>
     </Container>
   );

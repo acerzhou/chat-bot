@@ -84,7 +84,6 @@ function SuccessInfo({ handleUserInfoClick }) {
 
 export default function UserInfo({ userInfo, handleUserInfoClick }) {
   const [state, setState] = useState("show");
-  console.log(state);
   function handleEditClick() {
     setState("edit");
   }

@@ -15,13 +15,14 @@ function createLexClient() {
   });
 }
 
-export default async function sendText(inputMessage, slots) {
+export default async function sendText(sessionId, inputMessage, slots) {
+  console.log("send text", sessionId);
   const client = createLexClient();
   const input = {
     botId: "OZUKQW0QQI",
     botAliasId: "TSTALIASID",
     localeId: "en_US",
-    sessionId: "123456789",
+    sessionId: sessionId,
     text: inputMessage,
     responseContentType: "text/plain; charset=utf-8",
     sessionState: {

@@ -3,16 +3,17 @@ import ProductContent from "./ProductContent";
 
 const ProductContainer = styled.div`
   border: 1px solid black;
+  padding: 20px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  flex-wrap: wrap;
+  justify-content: center;
 `;
 
-export default function Product({ product }) {
+export default function BotProduct({ product }) {
   return (
     <ProductContainer>
-      <ProductContent product={product} />
+      <ProductContent product={product} isBot={true} />
     </ProductContainer>
   );
 }

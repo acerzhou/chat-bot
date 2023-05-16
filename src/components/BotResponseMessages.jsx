@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import BotResponseUserInfo from "./BotResponseUserInfo";
+import BotResponseProduct from "./BotResponseProduct";
+import CartItem from "./CartItem";
 
 const BotResponseMessagesContainer = styled.div`
   width: 100%;
@@ -30,6 +32,14 @@ export default function BotResponseMessages({ message, type }) {
       {type === "CustomPayload" && JSON.parse(message).type === "userInfo" && (
         <BotResponseUserInfo userInfo={JSON.parse(message)} />
       )}
+      {type === "CustomPayload" && JSON.parse(message).type === "product" && (
+        <BotResponseProduct product={JSON.parse(message)} />
+      )}
+      {type === "CustomPayload" &&
+        JSON.parse(message).type === "cart" &&
+        JSON.parse(message).items.map((item, index) => {
+          return <CartItem key={index} item={item} />;
+        })}
       {type === "PlainText" && message}
     </BotResponseMessagesContainer>
   );

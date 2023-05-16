@@ -32,9 +32,19 @@ const SideButton = styled.div`
 `;
 
 function App() {
+  const [messages, setMessages] = useState([
+    {
+      type: "botResponse",
+      message: {
+        content: "Hello, how can I help you?",
+        contentType: "PlainText",
+      },
+    },
+  ]);
+
   const [isChatBotShow, setIsChatBotShow] = useState(false);
   const [isUserInfoShow, setIsUserInfoShow] = useState(false);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState({ items: [] });
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
@@ -68,7 +78,9 @@ function App() {
       >
         Chat Bot
       </SideButton>
-      {isChatBotShow && <ChatBot />}
+      {isChatBotShow && (
+        <ChatBot messages={messages} setMessages={setMessages} />
+      )}
       {isUserInfoShow && (
         <UserInfo
           userInfo={userInfo}
