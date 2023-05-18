@@ -93,7 +93,17 @@ function Payment() {
   );
 }
 
-function Cart() {
+function Cart({ cart }) {
+  return (
+    <div>
+      {cart.items.map((item, index) => {
+        return <CartItem key={index} item={item} />;
+      })}
+    </div>
+  );
+}
+
+export default function CheckoutPage() {
   const [cart, setCart] = useState({ items: [] });
   console.log(cart);
   useEffect(() => {
@@ -107,22 +117,12 @@ function Cart() {
   }, []);
 
   return (
-    <div>
-      {cart.items.map((item, index) => {
-        return <CartItem key={index} item={item} />;
-      })}
-    </div>
-  );
-}
-
-export default function CheckoutPage() {
-  return (
     <Container>
       <h1>Checkout Page</h1>
       <div>User info</div>
       <UserInfo />
 
-      <Cart />
+      <Cart cart={cart} />
       <div>Delivery Options</div>
       <DeliveryOptions />
       <div>Payment Info</div>

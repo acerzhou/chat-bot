@@ -12,6 +12,10 @@ const CartContainer = styled(Link)`
   align-items: center;
 `;
 
-export default function Cart() {
-  return <CartContainer to={"/cart"}>Cart</CartContainer>;
+export default function Cart({ cart }) {
+  return (
+    <CartContainer to={"/cart"} state={{ cart: cart }}>
+      Cart
+    </CartContainer>
+  );
 }

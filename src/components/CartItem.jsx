@@ -28,7 +28,16 @@ const QuantityContainer = styled.div`
   gap: 20px;
 `;
 
-export default function CartItem({ item }) {
+const RemoveButton = styled.button`
+  width: 100px;
+  height: 50px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+`;
+
+export default function CartItem({ item, handleCartUpdate }) {
   return (
     <ItemContainer>
       <ProductImage src={item.image} alt={item.name} />
@@ -39,7 +48,9 @@ export default function CartItem({ item }) {
       </ProductInfo>
       <QuantityContainer>
         <div>{item.quantity}</div>
-        <div>Remove</div>
+        <RemoveButton onClick={() => handleCartUpdate(item)}>
+          Remove
+        </RemoveButton>
       </QuantityContainer>
     </ItemContainer>
   );

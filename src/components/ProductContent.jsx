@@ -31,9 +31,11 @@ const StyledLink = styled(Link)`
   justify-content: center;
 `;
 
-export default function ProductContent({ product, isBot = false }) {
-  async function UpdateCart() {}
-
+export default function ProductContent({
+  product,
+  isBot = false,
+  handleUpdateCart,
+}) {
   return (
     <>
       <StyledLink to={`/product/${product.id}`} state={{ product: product }}>
@@ -44,7 +46,9 @@ export default function ProductContent({ product, isBot = false }) {
           <ProductPrice>{product.price}</ProductPrice>
         </ProductInfo>
       </StyledLink>
-      <CartButton isBot={isBot}>Add To Cart</CartButton>
+      <CartButton isBot={isBot} onClick={() => handleUpdateCart(product)}>
+        Add To Cart
+      </CartButton>
     </>
   );
 }

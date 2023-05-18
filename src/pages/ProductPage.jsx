@@ -44,7 +44,6 @@ const BackHomeButton = styled(Link)`
 export default function ProductPage() {
   const location = useLocation();
   const { product } = location.state;
-  console.log(product.image);
   return (
     <Container>
       <ProductName>{product.name}</ProductName>

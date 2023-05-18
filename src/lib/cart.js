@@ -8,12 +8,12 @@ export async function getCart() {
 
 export async function updateCart(userInfo) {
   const response = await fetch(
-    "https://il3b62aiu5.execute-api.ap-southeast-2.amazonaws.com/Prod/user-info/",
+    "https://il3b62aiu5.execute-api.ap-southeast-2.amazonaws.com/Prod/cart/",
     {
       method: "POST",
       body: JSON.stringify(userInfo),
     }
   );
 
-  return response.json();
+  console.log("update cart response", response);
 }

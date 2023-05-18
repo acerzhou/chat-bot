@@ -30,7 +30,11 @@ const Input = styled.input`
   bottom: 10px;
 `;
 
-export default function ChatBot({ messages, setMessages }) {
+export default function ChatBot({
+  messages,
+  setMessages,
+  handleCartItemDelete,
+}) {
   const [input, setInput] = useState("");
   const [slots, setSlots] = useState(null);
   const [sessionId, setSessionId] = useState(null);
@@ -85,6 +89,7 @@ export default function ChatBot({ messages, setMessages }) {
                 key={index}
                 message={message.message.content}
                 type={message.message.contentType}
+                handleCartItemDelete={handleCartItemDelete}
               />
             );
           }

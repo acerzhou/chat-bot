@@ -9,10 +9,10 @@ const ProductContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-export default function Product({ product }) {
+export default function Product({ product, handleUpdateCart }) {
   return (
     <ProductContainer>
-      <ProductContent product={product} />
+      <ProductContent product={product} handleUpdateCart={handleUpdateCart} />
     </ProductContainer>
   );
 }

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { getCart } from "../lib/cart";
 import CartItem from "../components/CartItem";
+import { useLocation } from "react-router-dom";
+import { updateCart } from "../lib/cart";
+import { useEffect, useState } from "react";
 
 const Container = styled.div`
   width: 100%;
@@ -26,22 +27,29 @@ const CheckoutButton = styled(Link)`
 `;
 
 export default function CartPage() {
-  const [cart, setCart] = useState({ items: [] });
-  useEffect(() => {
-    async function CallCartApi() {
-      const cart = await getCart();
-      setCart(cart);
-      console.log(cart);
-    }
+  const location = useLocation();
+  const { cart } = location.state;
+  const [localCart, setCart] = useState(cart);
 
-    CallCartApi();
-  }, []);
+  async function handleCartUpdate(product) {
+    cart.items = cart.items.filter((item) => item.id !== product.id);
+
+    setCart((prev) => ({ ...prev, items: cart.items }));
+
+    await updateCart(cart);
+  }
 
   return (
     <Container>
       <h1>CartPage</h1>
-      {cart.items.map((item, index) => {
-        return <CartItem key={index} item={item} />;
+      {localCart.items.map((item, index) => {
+        return (
+          <CartItem
+            key={index}
+            item={item}
+            handleCartUpdate={handleCartUpdate}
+          />
+        );
       })}
       <CheckoutButton to={"/checkout"}>Checkout</CheckoutButton>
     </Container>

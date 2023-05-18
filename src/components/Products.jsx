@@ -9,11 +9,17 @@ const ProductsContainer = styled.div`
   justify-content: center;
 `;
 
-export default function Products({ products }) {
+export default function Products({ products, handleUpdateCart }) {
   return (
     <ProductsContainer>
       {products.items.map((product, index) => {
-        return <Product product={product} key={index} />;
+        return (
+          <Product
+            product={product}
+            key={index}
+            handleUpdateCart={handleUpdateCart}
+          />
+        );
       })}
     </ProductsContainer>
   );
