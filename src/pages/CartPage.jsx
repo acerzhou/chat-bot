@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CartItem from "../components/CartItem";
 import { useLocation } from "react-router-dom";
 import { updateCart } from "../lib/cart";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Container = styled.div`
   width: 100%;
