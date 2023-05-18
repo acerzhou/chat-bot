@@ -1,25 +1,29 @@
-# Name of workflow as seen in Github actions tab
-name: dev-build-and-deploy
-# Run workflow only on push to dev branch
+name: Deploy to S3
+
 on:
   push:
     branches:
-      - dev
+      - main
+
 jobs:
-  # To build the project
-  build-tambola:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checking out code
-        uses: actions/checkout@v3
-      - name: Installing Node.js
-        uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: "16"
-      - name: Installing dependencies
+          node-version: 18
+
+      - name: Install dependencies
         run: npm install
-      - name: Building project
+
+      - name: Build and deploy
         run: npm run build
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -28,4 +32,4 @@ jobs:
           aws-region: ap-southeast-2
 
       - name: Deploy to S3 bucket
-        run: aws s3 sync ./dist/ s3://chat-bot-web-2003 --delete
+        run: aws s3 sync ./dist/ s3://chat-bot-web-2023 --delete
