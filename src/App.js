@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import UserIcon from "./components/UserIcon";
 import Navigation from "./components/Navigation";
 import Carousel from "./components/Carousel";
-import { getUserInfo } from "./lib/userInfo";
+import { getUserInfo, updateUserInfo } from "./lib/userInfo";
 import UserInfo from "./components/UserInfo";
 import { getProducts } from "./lib/products";
 import Products from "./components/Products";
@@ -34,12 +34,23 @@ const SideButton = styled.div`
 `;
 
 function App() {
+  const messageBody = JSON.stringify({
+    type: "initial",
+    title: "Hello, how can I help you?",
+    buttons: [
+      "show me the products",
+      "show my cart",
+      "show my info",
+      "show me promotions",
+      "update my user name",
+    ],
+  });
   const [messages, setMessages] = useState([
     {
       type: "botResponse",
       message: {
-        content: "Hello, how can I help you?",
-        contentType: "PlainText",
+        content: messageBody,
+        contentType: "CustomPayload",
       },
     },
   ]);
@@ -75,6 +86,16 @@ function App() {
 
   function handleUserInfoClick() {
     setIsUserInfoShow(!isUserInfoShow);
+  }
+
+  async function handleUserNameUpdate(newUserName) {
+    const newUserInfo = { ...userInfo };
+    newUserInfo.name = newUserName;
+
+    const response = await updateUserInfo(newUserInfo);
+    console.log(response);
+
+    setUserInfo(newUserInfo);
   }
 
   async function handleUpdateCart(product) {
@@ -126,6 +147,8 @@ function App() {
           setMessages={setMessages}
           handleCartItemDelete={handleCartItemDelete}
           handleUpdateCart={handleUpdateCart}
+          handleUserNameUpdate={handleUserNameUpdate}
+          userInfo={userInfo}
         />
       )}
       {isUserInfoShow && (

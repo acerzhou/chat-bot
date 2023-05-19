@@ -90,7 +90,11 @@ function DeliveryOptions() {
   );
 }
 
-export default function BotResponseCheckout({ cart, handleCartItemDelete }) {
+export default function BotResponseCheckout({
+  cart,
+  handleCartItemDelete,
+  handleInteractButtonClick,
+}) {
   const [localCart, setLocalCart] = useState(cart);
 
   function handleCartUpdate(product) {
@@ -120,7 +124,11 @@ export default function BotResponseCheckout({ cart, handleCartItemDelete }) {
       <DeliveryOptions />
       <div>Payment Info</div>
       <Payment />
-      <CheckoutButton>Place the order</CheckoutButton>
+      <CheckoutButton
+        onClick={() => handleInteractButtonClick("Place the order")}
+      >
+        Place the order
+      </CheckoutButton>
     </div>
   ) : (
     <div>Cart is empty</div>

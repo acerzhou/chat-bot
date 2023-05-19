@@ -15,5 +15,5 @@ export async function updateUserInfo(userInfo) {
     }
   );
 
-  return response.json();
+  return response;
 }

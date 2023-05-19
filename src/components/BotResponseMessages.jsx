@@ -4,6 +4,8 @@ import BotResponseProduct from "./BotResponseProduct";
 import BotResponseCart from "./BotResponseCart";
 import BotResponseCheckout from "./BotResponseCheckout";
 import BotResponsePlaceOrder from "./BotResponsePlaceOrder";
+import BotInitialMessage from "./BotInitialMessage";
+import BotResponseUpdateUserName from "./BotResponseUpdateUserName";
 
 const BotResponseMessagesContainer = styled.div`
   width: 100%;
@@ -32,7 +34,11 @@ export default function BotResponseMessages({
   type,
   handleCartItemDelete,
   handleUpdateCart,
+  handleInteractButtonClick,
+  userInfo,
+  handleUserNameUpdate,
 }) {
+  console.log("BotResponseMessages", message, type);
   return (
     <BotResponseMessagesContainer>
       <BotAvatar>B</BotAvatar>
@@ -55,10 +61,24 @@ export default function BotResponseMessages({
         <BotResponseCheckout
           cart={JSON.parse(message)}
           handleCartItemDelete={handleCartItemDelete}
+          handleInteractButtonClick={handleInteractButtonClick}
         />
       )}
       {type === "CustomPayload" &&
+        JSON.parse(message).type === "updateUserInfo" && (
+          <BotResponseUpdateUserName
+            userInfo={userInfo}
+            handleUserNameUpdate={handleUserNameUpdate}
+          />
+        )}
+      {type === "CustomPayload" &&
         JSON.parse(message).type === "placeOrder" && <BotResponsePlaceOrder />}
+      {type === "CustomPayload" && JSON.parse(message).type === "initial" && (
+        <BotInitialMessage
+          message={JSON.parse(message)}
+          handleInteractButtonClick={handleInteractButtonClick}
+        />
+      )}
       {type === "PlainText" && message}
     </BotResponseMessagesContainer>
   );

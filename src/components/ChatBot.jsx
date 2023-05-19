@@ -35,6 +35,8 @@ export default function ChatBot({
   setMessages,
   handleCartItemDelete,
   handleUpdateCart,
+  handleUserNameUpdate,
+  userInfo,
 }) {
   const [input, setInput] = useState("");
   const [slots, setSlots] = useState(null);
@@ -64,9 +66,6 @@ export default function ChatBot({
       setInput("");
       const data = await sendText(sessionId, input, slots);
 
-      console.log(data);
-      setSlots(data.sessionState.intent.slots);
-
       if (data.messages) {
         data.messages.forEach((message) => {
           setMessages((messages) => [
@@ -75,6 +74,32 @@ export default function ChatBot({
           ]);
         });
       }
+    }
+  }
+
+  async function handleInteractButtonClick(inputFromButton) {
+    setMessages((messages) => [
+      ...messages,
+      {
+        message: {
+          content: inputFromButton,
+          type: "plainText",
+        },
+        type: "userInput",
+      },
+    ]);
+    const data = await sendText(sessionId, inputFromButton, slots);
+
+    console.log(data);
+    setSlots(data.sessionState.intent.slots);
+
+    if (data.messages) {
+      data.messages.forEach((message) => {
+        setMessages((messages) => [
+          ...messages,
+          { message: message, type: "botResponse" },
+        ]);
+      });
     }
   }
 
@@ -94,6 +119,9 @@ export default function ChatBot({
                 type={message.message.contentType}
                 handleCartItemDelete={handleCartItemDelete}
                 handleUpdateCart={handleUpdateCart}
+                handleInteractButtonClick={handleInteractButtonClick}
+                handleUserNameUpdate={handleUserNameUpdate}
+                userInfo={userInfo}
               />
             );
           }

@@ -20,10 +20,16 @@ const ProductPrice = styled.div`
   font-weight: bold;
 `;
 
+const PromotionProductPrice = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  color: red;
+`;
+
 const DisabledProductPrice = styled.div`
   font-size: 20px;
   font-weight: bold;
-  text-decoration: line-through;
+  text-decoration: line-through red;
 `;
 
 const CartButton = styled.button`
@@ -50,13 +56,15 @@ export default function ProductContent({
 
         <ProductInfo>
           <ProductName>{product.name}</ProductName>
-          {product.prmotionPrice ? (
+          {product.promotionPrice ? (
             <DisabledProductPrice>{product.price}</DisabledProductPrice>
           ) : (
             <ProductPrice>{product.price}</ProductPrice>
           )}
           {product.promotionPrice && (
-            <ProductPrice>{product.promotionPrice}</ProductPrice>
+            <PromotionProductPrice>
+              {product.promotionPrice}
+            </PromotionProductPrice>
           )}
         </ProductInfo>
       </StyledLink>

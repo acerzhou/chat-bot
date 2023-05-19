@@ -89,6 +89,8 @@ export default function UserInfo({ userInfo, handleUserInfoClick }) {
   }
 
   async function handleSaveClick(userInfo) {
+    console.log("save click");
+    console.log(userInfo);
     await updateUserInfo(userInfo);
     setState("success");
   }
