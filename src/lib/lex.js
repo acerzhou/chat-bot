@@ -10,7 +10,7 @@ function createLexClient() {
   };
 
   return new LexRuntimeV2Client({
-    region: process.env.REACT_APP_AWS_REGION,
+    region: "ap-southeast-2",
     credentials,
   });
 }
