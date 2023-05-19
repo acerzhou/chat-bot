@@ -93,7 +93,18 @@ function App() {
     newUserInfo.name = newUserName;
 
     const response = await updateUserInfo(newUserInfo);
-    console.log(response);
+    const text = await response.text();
+
+    setMessages((messages) => [
+      ...messages,
+      {
+        message: {
+          content: text,
+          contentType: "PlainText",
+        },
+        type: "botResponse",
+      },
+    ]);
 
     setUserInfo(newUserInfo);
   }
