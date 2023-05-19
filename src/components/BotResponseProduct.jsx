@@ -8,11 +8,17 @@ const BotResponseMessagesContainer = styled.div`
   flex-warp: wrap;
 `;
 
-export default function BotResponseProduct({ product }) {
+export default function BotResponseProduct({ product, handleUpdateCart }) {
   return (
     <BotResponseMessagesContainer>
       {product.items.map((item, index) => {
-        return <BotProduct key={index} product={item} />;
+        return (
+          <BotProduct
+            key={index}
+            product={item}
+            handleUpdateCart={handleUpdateCart}
+          />
+        );
       })}
     </BotResponseMessagesContainer>
   );

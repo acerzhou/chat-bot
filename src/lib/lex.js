@@ -30,8 +30,8 @@ export default async function sendText(sessionId, inputMessage, slots) {
         type: "Delegate",
       },
       intent: {
-        name: "UpdateUserName",
-        slots: slots,
+        name: "Checkout",
+        //slots: slots,
       },
     },
   };

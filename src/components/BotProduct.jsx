@@ -10,10 +10,14 @@ const ProductContainer = styled.div`
   justify-content: center;
 `;
 
-export default function BotProduct({ product }) {
+export default function BotProduct({ product, handleUpdateCart }) {
   return (
     <ProductContainer>
-      <ProductContent product={product} isBot={true} />
+      <ProductContent
+        product={product}
+        isBot={true}
+        handleUpdateCart={handleUpdateCart}
+      />
     </ProductContainer>
   );
 }

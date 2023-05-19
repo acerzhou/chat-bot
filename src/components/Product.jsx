@@ -7,6 +7,7 @@ const ProductContainer = styled.div`
   align-items: center;
   flex-direction: column;
   flex-wrap: wrap;
+  padding: 20px;
 `;
 
 export default function Product({ product, handleUpdateCart }) {

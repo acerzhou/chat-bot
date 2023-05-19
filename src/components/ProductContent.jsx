@@ -6,7 +6,8 @@ const ProductImage = styled.img`
 
 const ProductInfo = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  padding: 20px;
 `;
 
 const ProductName = styled.div`
@@ -17,6 +18,12 @@ const ProductName = styled.div`
 const ProductPrice = styled.div`
   font-size: 20px;
   font-weight: bold;
+`;
+
+const DisabledProductPrice = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: line-through;
 `;
 
 const CartButton = styled.button`
@@ -43,7 +50,14 @@ export default function ProductContent({
 
         <ProductInfo>
           <ProductName>{product.name}</ProductName>
-          <ProductPrice>{product.price}</ProductPrice>
+          {product.prmotionPrice ? (
+            <DisabledProductPrice>{product.price}</DisabledProductPrice>
+          ) : (
+            <ProductPrice>{product.price}</ProductPrice>
+          )}
+          {product.promotionPrice && (
+            <ProductPrice>{product.promotionPrice}</ProductPrice>
+          )}
         </ProductInfo>
       </StyledLink>
       <CartButton isBot={isBot} onClick={() => handleUpdateCart(product)}>

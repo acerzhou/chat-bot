@@ -11,6 +11,7 @@ import { getProducts } from "./lib/products";
 import Products from "./components/Products";
 import Cart from "./components/Cart";
 import { getCart, updateCart } from "./lib/cart";
+import Logo from "./components/Logo";
 
 const Container = styled.div`
   display: flex;
@@ -108,6 +109,7 @@ function App() {
 
   return (
     <Container>
+      <Logo />
       <UserIcon handleUserIcnoClick={handleUserInfoClick} />
       <Cart cart={cart} />
       <Navigation />
@@ -123,6 +125,7 @@ function App() {
           messages={messages}
           setMessages={setMessages}
           handleCartItemDelete={handleCartItemDelete}
+          handleUpdateCart={handleUpdateCart}
         />
       )}
       {isUserInfoShow && (

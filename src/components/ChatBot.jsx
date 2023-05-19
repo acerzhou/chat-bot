@@ -34,6 +34,7 @@ export default function ChatBot({
   messages,
   setMessages,
   handleCartItemDelete,
+  handleUpdateCart,
 }) {
   const [input, setInput] = useState("");
   const [slots, setSlots] = useState(null);
@@ -67,10 +68,12 @@ export default function ChatBot({
       setSlots(data.sessionState.intent.slots);
 
       if (data.messages) {
-        setMessages((messages) => [
-          ...messages,
-          { message: data.messages[0], type: "botResponse" },
-        ]);
+        data.messages.forEach((message) => {
+          setMessages((messages) => [
+            ...messages,
+            { message: message, type: "botResponse" },
+          ]);
+        });
       }
     }
   }
@@ -90,6 +93,7 @@ export default function ChatBot({
                 message={message.message.content}
                 type={message.message.contentType}
                 handleCartItemDelete={handleCartItemDelete}
+                handleUpdateCart={handleUpdateCart}
               />
             );
           }
